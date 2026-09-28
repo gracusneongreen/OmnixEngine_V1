@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "orchestrator": true,
+  "shared_project_context": true,
+  "specialists": ["web","draw","animation","chart","shader","fx","debug","computer","project"],
+  "structured_tool_routing": true,
+  "require_validation": true,
+  "require_execution_confirmation": true
+}
