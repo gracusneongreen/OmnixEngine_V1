@@ -1,16 +1,27 @@
 package omnix.ai.vision;
 
-class OmnixVisionProvider {
-    public var endpoint:String = "http://127.0.0.1:8188";
+import omnix.ai.OmnixAIProvider;
 
-    public function new(?endpoint:String) {
-        if (endpoint != null && endpoint != "") this.endpoint = endpoint;
+class OmnixVisionProvider {
+    public var provider:OmnixAIProvider;
+
+    public function new(?provider:OmnixAIProvider) {
+        this.provider = provider == null ? new OmnixAIProvider() : provider;
     }
 
     public function analyze(request:OmnixVisionRequest, callback:OmnixVisionResult->Void):Void {
-        callback({
-            ok: false,
-            message: "Connect this provider to a compatible local vision model."
+        var prompt = request.prompt != null && request.prompt != ""
+            ? request.prompt
+            : "Analyze this computer screenshot. Identify visible UI elements, approximate clickable coordinates, focused application, dialogs, errors, and the safest next computer action. Do not invent elements that are not visible.";
+        provider.chatWithImage(prompt, request.imageBase64, function(raw:String) {
+            callback({
+                ok: true,
+                message: "Vision response received.",
+                description: raw,
+                text: raw
+            });
+        }, function(error:String) {
+            callback({ok: false, message: error});
         });
     }
 }
