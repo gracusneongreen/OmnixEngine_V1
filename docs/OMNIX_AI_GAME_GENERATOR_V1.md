@@ -1,6 +1,6 @@
 # Omnix AI Game Generator V1
 
-Omnix now has a structured foundation for an AI-assisted game/mod generator.
+Omnix has a structured foundation for an AI-assisted game/mod generator.
 
 ## Modules
 
@@ -8,6 +8,7 @@ Omnix now has a structured foundation for an AI-assisted game/mod generator.
 - Voice profiles and reference-audio input
 - AI Cutscene planning
 - Character expressions in dialogue
+- TV event/news generation
 - Game Style Generator
 - Central game generation pipeline
 
@@ -32,6 +33,20 @@ A cutscene contains:
 - game events
 
 The AI layer should return structured scene data. Actual audio, images, animation and video are produced by the selected providers.
+
+## TV events
+
+TV broadcasts are structured game events. A generated broadcast can contain:
+
+- breaking-news headline
+- reporter
+- report text
+- optional image
+- reporter voice profile
+- glitch state
+- a game-event trigger
+
+This allows a cutscene to react to story events without requiring a pre-rendered video.
 
 ## Styles
 
