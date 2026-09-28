@@ -1,9 +1,5 @@
 package omnix.ai;
 
-/**
- * OpenAI-compatible provider configuration.
- * Works with local servers such as LM Studio or vLLM.
- */
 class OmnixAIProvider {
     public var baseUrl:String;
     public var model:String;
@@ -16,24 +12,34 @@ class OmnixAIProvider {
     }
 
     public function chat(question:String, callback:String->Void, ?onError:String->Void):Void {
+        request([
+            {role: "system", content: OmnixFNFKnowledge.SYSTEM_PROMPT},
+            {role: "user", content: question}
+        ], callback, onError);
+    }
+
+    public function chatWithImage(question:String, imageBase64:String, callback:String->Void, ?onError:String->Void):Void {
+        var content:Array<Dynamic> = [
+            {type: "text", text: question},
+            {type: "image_url", image_url: {url: "data:image/png;base64," + imageBase64}}
+        ];
+        request([
+            {role: "system", content: OmnixFNFKnowledge.SYSTEM_PROMPT},
+            {role: "user", content: content}
+        ], callback, onError);
+    }
+
+    function request(messages:Array<Dynamic>, callback:String->Void, ?onError:String->Void):Void {
         var http = new haxe.Http(baseUrl + "/chat/completions");
         http.setHeader("Content-Type", "application/json");
         if (apiKey != "") http.setHeader("Authorization", "Bearer " + apiKey);
-
-        var body = haxe.Json.stringify({
+        http.setPostData(haxe.Json.stringify({
             model: model,
-            messages: [
-                {role: "system", content: OmnixFNFKnowledge.SYSTEM_PROMPT},
-                {role: "user", content: question}
-            ],
-            temperature: 0.35
-        });
-
-        http.setPostData(body);
+            messages: messages,
+            temperature: 0.2
+        }));
         http.onData = function(data:String) callback(data);
-        http.onError = function(error:String) {
-            if (onError != null) onError(error);
-        };
+        http.onError = function(error:String) if (onError != null) onError(error);
         http.request(false);
     }
 }
