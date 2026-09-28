@@ -12,5 +12,9 @@
   "max_steps": 20,
   "ai_tool_format": "json",
   "vision_mode": "screenshot",
-  "loop": "screenshot_to_ai_to_action"
+  "loop": "screenshot_to_ai_to_action",
+  "vision_endpoint": "http://127.0.0.1:1234/v1",
+  "vision_transport": "openai_multimodal_chat",
+  "vision_image_format": "data:image/png;base64",
+  "vision_required": true
 }
