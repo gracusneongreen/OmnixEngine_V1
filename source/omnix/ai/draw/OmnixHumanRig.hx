@@ -1,10 +1,14 @@
 package omnix.ai.draw;
 
+import omnix.core.OmnixID;
+
 class OmnixHumanRig {
+    public var omnixId:String;
     public var parts:Map<String, OmnixHumanPart>;
     public var root:String = "torso";
 
     public function new() {
+        omnixId = OmnixID.random("RIG");
         parts = new Map<String, OmnixHumanPart>();
         add("head", "torso");
         add("neck", "torso");
@@ -31,5 +35,10 @@ class OmnixHumanRig {
 
     public function get(id:String):OmnixHumanPart {
         return parts.get(id);
+    }
+
+    public function getByOmnixId(id:String):OmnixHumanPart {
+        for (part in parts) if (part.omnixId == id) return part;
+        return null;
     }
 }
