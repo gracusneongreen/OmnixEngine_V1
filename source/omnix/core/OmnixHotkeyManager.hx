@@ -1,6 +1,13 @@
 package omnix.core;
 
 import flixel.FlxG;
+import backend.MusicBeatState;
+import states.MainMenuState;
+import states.editors.ChartingState;
+import states.editors.CharacterEditorState;
+import states.editors.MasterEditorMenu;
+import objects.Character;
+import omnix.ui.OmnixAgentDesktopState;
 
 /**
  * Central OmnixEngine V1 function-key map.
@@ -41,7 +48,28 @@ class OmnixHotkeyManager {
     }
 
     public static function dispatch(action:String):Void {
+        handleBuiltIn(action);
         if (onAction != null) onAction(action);
+    }
+
+    private static function handleBuiltIn(action:String):Void {
+        switch (action) {
+            case F1:
+                MusicBeatState.switchState(new MainMenuState());
+            case F3:
+                MusicBeatState.switchState(new OmnixAgentDesktopState());
+            case F4:
+                MusicBeatState.switchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+            case F5:
+                MusicBeatState.resetState();
+            case F6:
+                MusicBeatState.switchState(new ChartingState());
+            case F10:
+                MusicBeatState.switchState(new MasterEditorMenu());
+            case F11:
+                FlxG.fullscreen = !FlxG.fullscreen;
+            default:
+        }
     }
 
     public static function label(action:String):String {
