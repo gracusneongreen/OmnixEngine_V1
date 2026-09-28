@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "ai_chat": true,
+  "structured_output": true,
+  "dialogue": true,
+  "expressions": true,
+  "camera": true,
+  "animation": true,
+  "sound": true,
+  "game_events": true,
+  "voice_generation": true,
+  "tv_events": true
+}
