@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "mode": "image",
+  "live": true,
+  "format": "png",
+  "show_cursor_target": true,
+  "show_action_overlay": true,
+  "show_status": true,
+  "refresh_after_action": true,
+  "max_fps": 10
+}
