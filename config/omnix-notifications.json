@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "windows_notifications": true,
+  "user_messages": true,
+  "proactive_ai_messages": true,
+  "background_agent": true,
+  "notify_on_task_complete": true,
+  "notify_on_error": true,
+  "notify_on_approval_required": true,
+  "notify_on_agent_waiting": true,
+  "quiet_hours": {"enabled": true, "start": "22:00", "end": "07:00"},
+  "cooldown_seconds": 30
+}
