@@ -8,13 +8,15 @@ import states.editors.CharacterEditorState;
 import states.editors.MasterEditorMenu;
 import objects.Character;
 import omnix.ui.OmnixAgentDesktopState;
+import openfl.Lib;
+import openfl.events.KeyboardEvent;
+import openfl.ui.Keyboard;
 
 /**
- * Central OmnixEngine V1 function-key map.
+ * Global OmnixEngine V1 function-key manager.
  *
- * The manager detects shortcuts and dispatches feature actions. Feature
- * modules can subscribe through onAction without coupling the core state
- * to individual editors.
+ * Keyboard events are captured at the application stage, so F1-F12 work
+ * regardless of which Flixel state is currently active.
  */
 class OmnixHotkeyManager {
     public static inline var F1:String = "main_menu";
@@ -31,20 +33,53 @@ class OmnixHotkeyManager {
     public static inline var F12:String = "screenshot";
 
     public static var onAction:String->Void;
+    private static var initialized:Bool = false;
 
+    /**
+     * Install the global keyboard listener once.
+     * Safe to call repeatedly.
+     */
+    public static function initialize():Void {
+        if (initialized) return;
+        if (Lib.current == null || Lib.current.stage == null) return;
+
+        Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+        initialized = true;
+    }
+
+    /**
+     * Legacy per-frame entry point kept for compatibility with existing
+     * integrations. Global keyboard handling is now performed by onKeyDown.
+     */
     public static function update():Void {
-        if (FlxG.keys.justPressed.F1) dispatch(F1);
-        if (FlxG.keys.justPressed.F2) dispatch(F2);
-        if (FlxG.keys.justPressed.F3) dispatch(F3);
-        if (FlxG.keys.justPressed.F4) dispatch(F4);
-        if (FlxG.keys.justPressed.F5) dispatch(F5);
-        if (FlxG.keys.justPressed.F6) dispatch(F6);
-        if (FlxG.keys.justPressed.F7) dispatch(F7);
-        if (FlxG.keys.justPressed.F8) dispatch(F8);
-        if (FlxG.keys.justPressed.F9) dispatch(F9);
-        if (FlxG.keys.justPressed.F10) dispatch(F10);
-        if (FlxG.keys.justPressed.F11) dispatch(F11);
-        if (FlxG.keys.justPressed.F12) dispatch(F12);
+        initialize();
+    }
+
+    private static function onKeyDown(event:KeyboardEvent):Void {
+        var action:String = actionFromKeyCode(event.keyCode);
+        if (action == null) return;
+
+        // Prevent the browser/platform from consuming F-keys first.
+        event.preventDefault();
+        dispatch(action);
+    }
+
+    private static function actionFromKeyCode(keyCode:Int):String {
+        return switch (keyCode) {
+            case Keyboard.F1: F1;
+            case Keyboard.F2: F2;
+            case Keyboard.F3: F3;
+            case Keyboard.F4: F4;
+            case Keyboard.F5: F5;
+            case Keyboard.F6: F6;
+            case Keyboard.F7: F7;
+            case Keyboard.F8: F8;
+            case Keyboard.F9: F9;
+            case Keyboard.F10: F10;
+            case Keyboard.F11: F11;
+            case Keyboard.F12: F12;
+            default: null;
+        };
     }
 
     public static function dispatch(action:String):Void {
@@ -56,18 +91,25 @@ class OmnixHotkeyManager {
         switch (action) {
             case F1:
                 MusicBeatState.switchState(new MainMenuState());
+
             case F3:
                 MusicBeatState.switchState(new OmnixAgentDesktopState());
+
             case F4:
                 MusicBeatState.switchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+
             case F5:
                 MusicBeatState.resetState();
+
             case F6:
                 MusicBeatState.switchState(new ChartingState());
+
             case F10:
                 MusicBeatState.switchState(new MasterEditorMenu());
+
             case F11:
                 FlxG.fullscreen = !FlxG.fullscreen;
+
             default:
         }
     }
