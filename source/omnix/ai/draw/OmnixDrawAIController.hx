@@ -12,6 +12,7 @@ class OmnixDrawAIController {
     }
 
     public function executeJson(raw:String):Bool {
+        if (OmnixDrawValidation.validateAction(raw) != "OK") return false;
         var call:Dynamic;
         try {
             call = Json.parse(raw);
@@ -37,6 +38,7 @@ class OmnixDrawAIController {
             case "scale":
                 editor.select(Std.string(args.partId));
                 var amount = Std.parseFloat(Std.string(args.amount));
+                if (!OmnixDrawValidation.validateScale(amount)) return false;
                 editor.scaleSelected(amount, amount);
             case "pose":
                 editor.applyPose(Std.string(args.name));
