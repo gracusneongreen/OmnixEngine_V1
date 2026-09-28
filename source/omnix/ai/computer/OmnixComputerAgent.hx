@@ -1,5 +1,7 @@
 package omnix.ai.computer;
 
+typedef OmnixComputerResult = OmnixComputerUse.OmnixComputerResult;
+
 class OmnixComputerAgent {
     public var computer:OmnixComputerUse;
     public var context:OmnixComputerContext;
