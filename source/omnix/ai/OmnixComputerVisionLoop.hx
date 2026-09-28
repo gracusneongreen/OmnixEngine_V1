@@ -52,7 +52,7 @@ class OmnixComputerVisionLoop {
             computer.execute(action, function(result) {
                 if (!result.ok) { callback(false, result.message); return; }
                 computer.screenshot(function(screen) {
-                    askAI(goal, screen.screenshot, callback);
+                    analyzeAndAsk(goal, screen.screenshot, callback);
                 });
             });
         }, function(error:String) callback(false, error));
