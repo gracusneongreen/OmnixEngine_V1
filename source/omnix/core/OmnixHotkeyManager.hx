@@ -1,12 +1,13 @@
 package omnix.core;
 
-import flixel.input.keyboard.FlxKey;
+import flixel.FlxG;
 
 /**
  * Central OmnixEngine V1 function-key map.
  *
- * The manager only detects and dispatches shortcuts. Feature modules can
- * subscribe through onAction without coupling the core game state to editors.
+ * The manager detects shortcuts and dispatches feature actions. Feature
+ * modules can subscribe through onAction without coupling the core state
+ * to individual editors.
  */
 class OmnixHotkeyManager {
     public static inline var F1:String = "main_menu";
