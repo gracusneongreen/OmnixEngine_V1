@@ -47,7 +47,7 @@ class OmnixComputerVisionLoop {
                 if (Reflect.hasField(args, "text")) action.text = Std.string(args.text);
                 if (Reflect.hasField(args, "key")) action.key = Std.string(args.key);
             }
-            action.approved = true;
+            var validation = OmnixComputerActionValidator.validate(action);\n            if (validation != "OK") { callback(false, validation); return; }\n            action.approved = true;
             loop.nextStep();
             computer.execute(action, function(result) {
                 if (!result.ok) { callback(false, result.message); return; }
