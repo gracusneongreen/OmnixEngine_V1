@@ -7,18 +7,27 @@ import flixel.ui.FlxButton;
 import flixel.ui.FlxInputText;
 import omnix.ai.computer.OmnixComputerAgent;
 import omnix.ai.computer.OmnixComputerResult;
+import omnix.ai.computer.OmnixScreenPeek;
 
 class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
     public var agent:OmnixComputerAgent;
+    public var screenPeek:OmnixScreenPeek;
     public var status:FlxText;
     public var transcript:FlxText;
     public var input:FlxInputText;
 
+    var screen:FlxSprite;
+    var screenLabel:FlxText;
     var lines:Array<String> = [];
+    var screenX:Float;
+    var screenY:Float;
+    var screenW:Int;
+    var screenH:Int;
 
     public function new(x:Float = 20, y:Float = 20, width:Int = 900, height:Int = 600) {
         super();
         agent = new OmnixComputerAgent();
+        screenPeek = new OmnixScreenPeek();
 
         var bg = new FlxSprite(x, y);
         bg.makeGraphic(width, height, 0xF0121218);
@@ -28,9 +37,19 @@ class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
         title.size = 20;
         add(title);
 
-        var screen = new FlxSprite(x + 18, y + 52);
-        screen.makeGraphic(width - 36, 330, 0xFF050507);
+        screenX = x + 18;
+        screenY = y + 52;
+        screenW = width - 36;
+        screenH = 330;
+
+        screen = new FlxSprite(screenX, screenY);
+        screen.makeGraphic(screenW, screenH, 0xFF050507);
         add(screen);
+
+        screenLabel = new FlxText(screenX + 12, screenY + 12, screenW - 24,
+            "SCREEN PEEK // waiting for screenshot");
+        screenLabel.size = 13;
+        add(screenLabel);
 
         status = new FlxText(x + 18, y + 390, width - 130, "COMPUTER: offline");
         status.size = 12;
@@ -69,10 +88,34 @@ class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
     public function takeScreenshot():Void {
         agent.takeScreenshot(function(result:OmnixComputerResult) {
             if (result.ok) {
+                /*
+                 * The current Computer Host returns screenshot data to the agent layer.
+                 * Screen Peek stores that payload. Actual PNG decoding/rendering is kept
+                 * isolated here so the UI can later use OpenFL/Flixel bitmap decoding.
+                 */
+                if (result.data != null) {
+                    var payload:Dynamic = result.data;
+                    var base64:String = payload.imageBase64 != null ? Std.string(payload.imageBase64) : "";
+                    var mime:String = payload.mimeType != null ? Std.string(payload.mimeType) : "image/png";
+                    var w:Int = payload.width != null ? Std.int(payload.width) : 0;
+                    var h:Int = payload.height != null ? Std.int(payload.height) : 0;
+
+                    if (base64 != "") {
+                        screenPeek.setImage(base64, mime, w, h);
+                        screenLabel.text = "SCREEN PEEK // LIVE IMAGE RECEIVED"
+                            + "\n" + mime + " " + w + "x" + h;
+                    } else {
+                        screenLabel.text = "SCREEN PEEK // screenshot received (no image payload)";
+                    }
+                } else {
+                    screenLabel.text = "SCREEN PEEK // screenshot received";
+                }
+
                 addLine("SCREENSHOT: received from agent desktop.");
-                status.text = "COMPUTER: screenshot received";
+                status.text = "COMPUTER: SCREEN PEEK READY";
             } else {
                 addLine("SCREENSHOT ERROR: " + result.message);
+                status.text = "COMPUTER: screenshot error";
             }
         });
     }
