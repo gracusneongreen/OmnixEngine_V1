@@ -17,6 +17,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
+import omnix.core.OmnixHotkeyManager;
 
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
@@ -154,6 +155,10 @@ class Main extends Sprite
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
+
+		// Install Omnix F1-F12 before the first Flixel state starts.
+		OmnixHotkeyManager.initialize();
+
 		addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
 		#if !mobile
