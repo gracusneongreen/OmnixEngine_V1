@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "provider": "local-or-compatible",
+  "default_language": "en",
+  "output_format": "wav",
+  "reference_voice_upload": true,
+  "consent_required": true,
+  "emotion_controls": true,
+  "profiles": true
+}
