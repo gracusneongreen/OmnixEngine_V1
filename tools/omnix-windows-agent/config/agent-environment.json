@@ -1,0 +1,18 @@
+{
+  "name": "Omnix Windows 11 Agent Environment V1",
+  "platform": "windows-11",
+  "deployment": "dedicated-vm",
+  "computer_host": {
+    "bind": "127.0.0.1",
+    "port": 8765,
+    "health": "/health"
+  },
+  "workspace": "workspace",
+  "screen_peek": true,
+  "mouse": true,
+  "keyboard": true,
+  "shell": false,
+  "install_apps": false,
+  "network_policy": "restricted",
+  "approval_required": true
+}
