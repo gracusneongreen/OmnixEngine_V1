@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "window": {"width": 900, "height": 600},
+  "computer_use_endpoint": "http://127.0.0.1:8765",
+  "live_screenshot": true,
+  "mouse": true,
+  "keyboard": true,
+  "app_launcher": true,
+  "app_installer": true,
+  "require_approval": true,
+  "sandbox": true
+}
