@@ -11,6 +11,14 @@ class OmnixDrawAIController {
         lastAction = "";
     }
 
+    private function resolvePart(id:String):String {
+        if (id == null) return "";
+        for (part in editor.rig.parts) {
+            if (part.id == id || part.omnixId == id) return part.id;
+        }
+        return id;
+    }
+
     public function executeJson(raw:String):Bool {
         if (OmnixDrawValidation.validateAction(raw) != "OK") return false;
         var call:Dynamic;
@@ -25,32 +33,29 @@ class OmnixDrawAIController {
 
         var action = Std.string(call.action);
         var args:Dynamic = Reflect.hasField(call, "arguments") ? call.arguments : {};
+        var target:String = Reflect.hasField(call, "target") ? Std.string(call.target) : "";
+        var partId = resolvePart(target.length > 0 ? target : (Reflect.hasField(args, "partId") ? Std.string(args.partId) : ""));
 
         switch (action) {
             case "select":
-                editor.select(Std.string(args.partId));
+                editor.select(partId);
             case "move":
-                editor.select(Std.string(args.partId));
+                editor.select(partId);
                 editor.moveSelected(Std.parseFloat(Std.string(args.x)), Std.parseFloat(Std.string(args.y)));
             case "rotate":
-                editor.select(Std.string(args.partId));
+                editor.select(partId);
                 editor.rotateSelected(Std.parseFloat(Std.string(args.degrees)));
             case "scale":
-                editor.select(Std.string(args.partId));
+                editor.select(partId);
                 var amount = Std.parseFloat(Std.string(args.amount));
                 if (!OmnixDrawValidation.validateScale(amount)) return false;
                 editor.scaleSelected(amount, amount);
             case "pose":
                 editor.applyPose(Std.string(args.name));
             case "asset":
-                editor.setAsset(
-                    Std.string(args.partId),
-                    Std.string(args.path),
-                    Std.int(args.width),
-                    Std.int(args.height)
-                );
+                editor.setAsset(partId, Std.string(args.path), Std.int(args.width), Std.int(args.height));
             case "visible":
-                editor.setLayerVisible(Std.string(args.partId), args.value == true);
+                editor.setLayerVisible(partId, args.value == true);
             case "save":
                 lastAction = editor.saveProjectJson();
                 return true;
@@ -65,6 +70,7 @@ class OmnixDrawAIController {
     public static function toolSchema():String {
         return Json.stringify({
             tool: "draw",
+            target: "optional OMNIX-ID",
             actions: [
                 {name: "select", arguments: ["partId"]},
                 {name: "move", arguments: ["partId", "x", "y"]},
