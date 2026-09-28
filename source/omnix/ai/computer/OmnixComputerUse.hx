@@ -2,6 +2,7 @@ package omnix.ai.computer;
 
 import haxe.Http;
 import haxe.Json;
+import omnix.ai.computer.OmnixComputerAction.OmnixComputerActionType;
 
 typedef OmnixComputerResult = {
     var ok:Bool;
@@ -100,9 +101,8 @@ class OmnixComputerUse {
         if (payload.method == "GET") {
             http.request(false);
         } else {
-            http.setMethod("POST");
             http.setPostData(body);
-            http.request(false);
+            http.request(true);
         }
     }
 }
