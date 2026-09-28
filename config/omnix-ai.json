@@ -1,0 +1,8 @@
+{
+  "provider": "lm-studio",
+  "base_url": "http://127.0.0.1:1234/v1",
+  "model": "OmnixFNF-AI",
+  "api_key": "lm-studio",
+  "temperature": 0.35,
+  "chat_endpoint": "/chat/completions"
+}
