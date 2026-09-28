@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "art_bible": true,
+  "reference_images": {
+    "style": true,
+    "characters": true,
+    "backgrounds": true,
+    "props": true
+  },
+  "brush_profiles": true,
+  "palette_lock": true,
+  "line_weight_lock": true,
+  "shading_lock": true,
+  "lighting_lock": true,
+  "perspective_lock": true,
+  "scale_lock": true,
+  "negative_rules": true,
+  "character_consistency": true,
+  "background_consistency": true
+}
