@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "endpoint": "http://127.0.0.1:8765",
+  "require_approval": true,
+  "allow_screenshot": true,
+  "allow_mouse": true,
+  "allow_keyboard": true,
+  "allow_apps": true,
+  "allow_app_install": true,
+  "allow_shell": true,
+  "sandbox": true
+}
