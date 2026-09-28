@@ -1,0 +1,10 @@
+{
+  "bind_host": "127.0.0.1",
+  "port": 8765,
+  "require_approval": true,
+  "allow_install": false,
+  "allow_shell": false,
+  "allowed_apps": [],
+  "allowed_commands": [],
+  "max_action_steps": 20
+}
