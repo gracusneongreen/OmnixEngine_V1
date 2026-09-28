@@ -13,12 +13,6 @@ import openfl.Lib;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
 
-/**
- * Global OmnixEngine V1 function-key manager.
- *
- * Keyboard events are captured at the application stage, so F1-F12 work
- * regardless of which Flixel state is currently active.
- */
 class OmnixHotkeyManager {
     public static inline var F1:String = "main_menu";
     public static inline var F2:String = "ai_chat";
@@ -36,22 +30,14 @@ class OmnixHotkeyManager {
     public static var onAction:String->Void;
     private static var initialized:Bool = false;
 
-    /**
-     * Install the global keyboard listener once.
-     * Safe to call repeatedly.
-     */
     public static function initialize():Void {
         if (initialized) return;
         if (Lib.current == null || Lib.current.stage == null) return;
 
-        // Capture phase gives Omnix the highest keyboard priority before state/UI handlers.\n        Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, true);
+        Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, true);
         initialized = true;
     }
 
-    /**
-     * Legacy per-frame entry point kept for compatibility with existing
-     * integrations. Global keyboard handling is now performed by onKeyDown.
-     */
     public static function update():Void {
         initialize();
     }
@@ -60,8 +46,8 @@ class OmnixHotkeyManager {
         var action:String = actionFromKeyCode(event.keyCode);
         if (action == null) return;
 
-        // Prevent the browser/platform from consuming F-keys first.
         event.preventDefault();
+        event.stopImmediatePropagation();
         dispatch(action);
     }
 
@@ -92,45 +78,37 @@ class OmnixHotkeyManager {
         switch (action) {
             case F1:
                 MusicBeatState.switchState(new MainMenuState());
-
             case F2:
                 MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.CHAT));
-
             case F3:
                 MusicBeatState.switchState(new OmnixAgentDesktopState());
-
             case F4:
                 MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.DRAW));
-
             case F5:
                 MusicBeatState.resetState();
-
             case F6:
                 MusicBeatState.switchState(new ChartingState());
-
             case F7:
                 MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.MOD));
-
             case F8:
                 MusicBeatState.switchState(new OmnixShaderPreviewState());
-
             case F9:
                 MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.DEBUG));
-
             case F10:
                 MusicBeatState.switchState(new MasterEditorMenu());
-
             case F11:
                 FlxG.fullscreen = !FlxG.fullscreen;
-
             case F12:
                 MusicBeatState.switchState(new OmnixAgentDesktopState());
-
             default:
         }
     }
 
-    /** Returns the input layer that owns a global action. */\n    public static function layer(action:String):String {\n        return "GLOBAL_HOTKEY";\n    }\n\n    public static function label(action:String):String {
+    public static function layer(action:String):String {
+        return "GLOBAL_HOTKEY";
+    }
+
+    public static function label(action:String):String {
         return switch (action) {
             case F1: "Main Menu";
             case F2: "AI Chat";
