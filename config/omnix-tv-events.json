@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "ai_generation": true,
+  "breaking_news": true,
+  "reporter_voice": true,
+  "images": true,
+  "glitch_effects": true,
+  "game_event_triggers": true
+}
