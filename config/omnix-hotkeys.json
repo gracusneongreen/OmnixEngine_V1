@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "keys": {
+    "F1": "main_menu",
+    "F2": "ai_chat",
+    "F3": "computer_use",
+    "F4": "ai_draw",
+    "F5": "reload",
+    "F6": "chart_editor",
+    "F7": "cutscene_tv",
+    "F8": "shader_fx",
+    "F9": "debug_ai",
+    "F10": "mod_project",
+    "F11": "fullscreen",
+    "F12": "screenshot"
+  },
+  "secondary": {
+    "ESC": "back_or_pause",
+    "TAB": "ai_messenger",
+    "CTRL+S": "save_project",
+    "CTRL+Z": "undo",
+    "CTRL+Y": "redo",
+    "CTRL+SHIFT+S": "save_as",
+    "CTRL+P": "command_palette"
+  }
+}
