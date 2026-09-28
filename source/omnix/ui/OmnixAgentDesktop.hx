@@ -4,7 +4,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.addons.ui.FlxInputText;
+import flixel.addons.ui.PsychUIInputText;
 import omnix.ai.computer.OmnixComputerAgent;
 import omnix.ai.computer.OmnixComputerUse.OmnixComputerResult;
 import omnix.ai.computer.OmnixScreenPeek;
@@ -14,7 +14,7 @@ class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
     public var screenPeek:OmnixScreenPeek;
     public var status:FlxText;
     public var transcript:FlxText;
-    public var input:FlxInputText;
+    public var input:PsychUIInputText;
 
     var screen:FlxSprite;
     var screenLabel:FlxText;
@@ -60,7 +60,7 @@ class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
         transcript.wordWrap = true;
         add(transcript);
 
-        input = new FlxInputText(x + 18, y + height - 52, width - 190, 32, "");
+        input = new PsychUIInputText(x + 18, y + height - 52, width - 190, 32, "");
         input.size = 15;
         add(input);
 
