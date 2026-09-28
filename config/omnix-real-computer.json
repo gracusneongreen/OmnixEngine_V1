@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "mode": "host_controlled_desktop",
+  "endpoint": "http://127.0.0.1:8765",
+  "environment": "Omnix Desktop Sandbox",
+  "isolated": true,
+  "screen_stream": true,
+  "mouse_keyboard": true,
+  "filesystem": "workspace_only",
+  "shell": "disabled_by_default",
+  "install_apps": "disabled_by_default",
+  "network": "allowlist",
+  "approval_required": true,
+  "max_agent_steps": 30
+}
