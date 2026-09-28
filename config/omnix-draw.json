@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "mode": "human_rig",
+  "ik": true,
+  "poses": ["idle", "left", "down", "up", "right"],
+  "editable_parts": true,
+  "export": ["rig_json", "spritesheet", "xml"],
+  "ai_planning": true
+}
