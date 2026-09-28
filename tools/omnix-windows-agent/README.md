@@ -10,7 +10,7 @@ A host-side setup package for running Omnix Computer Use inside a dedicated Wind
 - The setup scripts do not download Windows ISOs or bypass Windows licensing.
 - VM creation is separated from Windows installation because hypervisors differ.
 
-## Quick start
+## Windows 11 ISO source\n\nUse the official Microsoft download page: https://www.microsoft.com/software-download/windows11\n\nRun `./download-windows11-iso.ps1`, save the official x64 ISO into `./iso/`, then run `./detect-iso.ps1` to calculate its SHA256. Microsoft generates time-limited ISO links, so Omnix does not hard-code an expiring download URL. A valid Windows license is still required.\n\n## Quick start
 
 1. Create a Windows 11 VM using your preferred hypervisor and a legitimate Windows 11 ISO/license.
 2. Boot Windows 11 and install Python.
