@@ -15,20 +15,20 @@ import omnix.ai.OmnixAIContext;
  * Press F8 to open/close the chat.
  */
 class OmnixAIIntegration {
-    public var panel:OmnixAIChatPanel;
+    public var window:OmnixAIChatWindow;
     public var input:OmnixAIInputController;
     public var context:OmnixAIContext;
 
     public static function attach(state:FlxState):OmnixAIIntegration {
         var integration = new OmnixAIIntegration();
-        state.add(integration.panel);
+        state.add(integration.window);
         return integration;
     }
 
     public function new() {
-        panel = new OmnixAIChatPanel();
-        input = new OmnixAIInputController(panel);
-        context = panel.context;
+        window = new OmnixAIChatWindow();
+        input = new OmnixAIInputController(cast window);
+        context = window.context;
     }
 
     public function update():Void {
@@ -36,7 +36,8 @@ class OmnixAIIntegration {
     }
 
     public function ask(question:String):Void {
-        panel.ask(question);
+        window.input.text = question;
+        window.sendButton.onUp.callback();
     }
 
     public function open():Void {
