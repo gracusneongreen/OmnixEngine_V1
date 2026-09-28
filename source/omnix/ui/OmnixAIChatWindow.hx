@@ -38,8 +38,7 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
         transcript.wordWrap = true;
         add(transcript);
 
-        input = new PsychUIInputText(x + 16, y + height - 64, width - 140, 34, "");
-        input.size = 16;
+        input = new PsychUIInputText(x + 16, y + height - 64, width - 140, "", 16);
         PsychUIInputText.focusOn = input;
         add(input);
 
