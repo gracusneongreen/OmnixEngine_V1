@@ -2,10 +2,10 @@ package omnix.ui;
 
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.ui.FlxInputText;
+import backend.ui.PsychUIInputText;
 import omnix.ai.OmnixAIMode;
 import omnix.ai.OmnixAIModeChat;
 import omnix.ai.OmnixAIContext;
@@ -13,7 +13,7 @@ import omnix.ai.OmnixAIContext;
 class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
     public var chat:OmnixAIModeChat;
     public var context:OmnixAIContext;
-    public var input:FlxInputText;
+    public var input:PsychUIInputText;
     public var sendButton:FlxButton;
     public var transcript:FlxText;
     public var status:FlxText;
@@ -38,9 +38,9 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
         transcript.wordWrap = true;
         add(transcript);
 
-        input = new FlxInputText(x + 16, y + height - 64, width - 140, 34, "");
+        input = new PsychUIInputText(x + 16, y + height - 64, width - 140, 34, "");
         input.size = 16;
-        input.hasFocus = true;
+        PsychUIInputText.focusOn = input;
         add(input);
 
         sendButton = new FlxButton(x + width - 112, y + height - 64, "SEND", sendCurrent);
@@ -92,6 +92,6 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
-        if (FlxG.keys.justPressed.ENTER && input.hasFocus) sendCurrent();
+        if (FlxG.keys.justPressed.ENTER && PsychUIInputText.focusOn == input) sendCurrent();
     }
 }
