@@ -6,7 +6,11 @@
   "allow_mouse": true,
   "allow_keyboard": true,
   "allow_apps": true,
-  "allow_app_install": true,
-  "allow_shell": true,
-  "sandbox": true
+  "allow_app_install": false,
+  "allow_shell": false,
+  "sandbox": true,
+  "max_steps": 20,
+  "ai_tool_format": "json",
+  "vision_mode": "screenshot",
+  "loop": "screenshot_to_ai_to_action"
 }
