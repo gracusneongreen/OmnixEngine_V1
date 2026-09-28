@@ -1,6 +1,7 @@
 package omnix.ai.computer;
 
 import omnix.ai.computer.OmnixComputerUse.OmnixComputerResult;
+import omnix.ai.computer.OmnixComputerAction.OmnixComputerActionType;
 
 class OmnixComputerAgent {
     public var computer:OmnixComputerUse;
