@@ -1,6 +1,8 @@
 package backend;
 
 import flixel.FlxState;
+import flixel.FlxG;
+import omnix.core.OmnixHotkeyManager;
 import backend.PsychCamera;
 
 class MusicBeatState extends FlxState
@@ -56,6 +58,10 @@ class MusicBeatState extends FlxState
 		//everyStep();
 		var oldStep:Int = curStep;
 		timePassedOnState += elapsed;
+
+		OmnixHotkeyManager.update();
+		if (FlxG.keys.justPressed.F5) resetState();
+		if (FlxG.keys.justPressed.F11) FlxG.fullscreen = !FlxG.fullscreen;
 
 		updateCurStep();
 		updateBeat();
