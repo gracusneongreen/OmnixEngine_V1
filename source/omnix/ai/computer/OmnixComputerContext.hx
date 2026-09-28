@@ -7,6 +7,8 @@ class OmnixComputerContext {
     public var apps:Array<String> = [];
     public var lastScreenshot:String = "";
 
+    public function new() {}
+
     public function toPrompt():String {
         return "COMPUTER ENVIRONMENT:\n" +
             "connected=" + connected + "\n" +
