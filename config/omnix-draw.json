@@ -1,9 +1,15 @@
 {
   "enabled": true,
   "mode": "human_rig",
+  "image_generation": true,
+  "image_backend": "local",
+  "image_endpoint": "http://127.0.0.1:8188",
   "ik": true,
   "poses": ["idle", "left", "down", "up", "right"],
   "editable_parts": true,
   "export": ["rig_json", "spritesheet", "xml"],
-  "ai_planning": true
+  "ai_planning": true,
+  "art_bible": true,
+  "reference_images": true,
+  "adapters": ["style", "character", "background", "lineart", "pose"]
 }
