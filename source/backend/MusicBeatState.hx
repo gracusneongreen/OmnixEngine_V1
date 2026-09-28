@@ -60,8 +60,6 @@ class MusicBeatState extends FlxState
 		timePassedOnState += elapsed;
 
 		OmnixHotkeyManager.update();
-		if (FlxG.keys.justPressed.F5) resetState();
-		if (FlxG.keys.justPressed.F11) FlxG.fullscreen = !FlxG.fullscreen;
 
 		updateCurStep();
 		updateBeat();
