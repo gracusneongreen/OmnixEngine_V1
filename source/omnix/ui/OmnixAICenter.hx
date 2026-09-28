@@ -1,14 +1,15 @@
 package omnix.ui;
 
 import flixel.FlxSprite;
+import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import omnix.ai.OmnixAIMode;
 import omnix.ai.OmnixAIModeChat;
 
-class OmnixAICenter extends FlxTypedGroup<FlxSprite> {
+class OmnixAICenter extends FlxTypedGroup<FlxBasic> {
     public static inline var CHAT:String = "CHAT";
     public static inline var CODE:String = "CODE";
     public static inline var MOD:String = "MOD";
