@@ -44,7 +44,7 @@ class OmnixHotkeyManager {
         if (initialized) return;
         if (Lib.current == null || Lib.current.stage == null) return;
 
-        Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+        // Capture phase gives Omnix the highest keyboard priority before state/UI handlers.\n        Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, true);
         initialized = true;
     }
 
@@ -130,7 +130,7 @@ class OmnixHotkeyManager {
         }
     }
 
-    public static function label(action:String):String {
+    /** Returns the input layer that owns a global action. */\n    public static function layer(action:String):String {\n        return "GLOBAL_HOTKEY";\n    }\n\n    public static function label(action:String):String {
         return switch (action) {
             case F1: "Main Menu";
             case F2: "AI Chat";
