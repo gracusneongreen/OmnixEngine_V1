@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "custom_styles": true,
+  "presets": [
+    "summer",
+    "winter",
+    "halloween",
+    "christmas",
+    "school",
+    "corruption"
+  ],
+  "generate": [
+    "world",
+    "characters",
+    "music_direction",
+    "dialogue_direction",
+    "fx_direction"
+  ]
+}
