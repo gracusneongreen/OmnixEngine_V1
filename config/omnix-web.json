@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "search": true,
+  "open": true,
+  "read": true,
+  "download": false,
+  "external_navigation": false,
+  "require_download_approval": true,
+  "require_external_navigation_approval": true,
+  "max_steps": 12,
+  "allowed_domains": [
+    "github.com",
+    "docs.openfl.org",
+    "api.github.com"
+  ]
+}
