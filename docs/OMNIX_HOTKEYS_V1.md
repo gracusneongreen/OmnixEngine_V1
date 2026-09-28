@@ -19,6 +19,13 @@
 
 The central dispatcher is `OmnixHotkeyManager`. Feature modules can subscribe to its action callback.
 
-F5 and F11 have core behavior immediately: F5 reloads the current state and F11 toggles fullscreen. F2 opens the existing AI chat controller.
+All F1-F12 actions are now handled by the dispatcher:
 
-The remaining feature actions are registered in the central dispatcher and are ready for their respective UI modules to bind.
+- F1, F3, F5, F6, F8, F10 and F11 open or control their corresponding engine state directly.
+- F2 opens the AI Center in Chat mode.
+- F4 opens the AI Center in Draw AI mode.
+- F7 opens the AI Center in Mod mode for cutscene/TV project work.
+- F9 opens the AI Center in Debug mode.
+- F12 opens the Computer Use desktop, where the Screenshot action is available.
+
+The F-keys are captured at the OpenFL application stage and work regardless of the active Flixel state.

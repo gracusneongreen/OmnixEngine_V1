@@ -1,6 +1,7 @@
 package omnix.shaders;
 
 import flixel.FlxState;
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 

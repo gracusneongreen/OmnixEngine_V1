@@ -4,10 +4,11 @@ import flixel.FlxG;
 import backend.MusicBeatState;
 import states.MainMenuState;
 import states.editors.ChartingState;
-import states.editors.CharacterEditorState;
 import states.editors.MasterEditorMenu;
-import objects.Character;
 import omnix.ui.OmnixAgentDesktopState;
+import omnix.ui.OmnixAIChatState;
+import omnix.ui.OmnixAICenter;
+import omnix.shaders.OmnixShaderPreviewState;
 import openfl.Lib;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
@@ -92,11 +93,14 @@ class OmnixHotkeyManager {
             case F1:
                 MusicBeatState.switchState(new MainMenuState());
 
+            case F2:
+                MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.CHAT));
+
             case F3:
                 MusicBeatState.switchState(new OmnixAgentDesktopState());
 
             case F4:
-                MusicBeatState.switchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+                MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.DRAW));
 
             case F5:
                 MusicBeatState.resetState();
@@ -104,11 +108,23 @@ class OmnixHotkeyManager {
             case F6:
                 MusicBeatState.switchState(new ChartingState());
 
+            case F7:
+                MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.MOD));
+
+            case F8:
+                MusicBeatState.switchState(new OmnixShaderPreviewState());
+
+            case F9:
+                MusicBeatState.switchState(new OmnixAIChatState(OmnixAICenter.DEBUG));
+
             case F10:
                 MusicBeatState.switchState(new MasterEditorMenu());
 
             case F11:
                 FlxG.fullscreen = !FlxG.fullscreen;
+
+            case F12:
+                MusicBeatState.switchState(new OmnixAgentDesktopState());
 
             default:
         }

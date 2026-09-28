@@ -7,11 +7,18 @@ import flixel.FlxState;
  * It is not wired into the main menu automatically.
  */
 class OmnixAIChatState extends FlxState {
-    var panel:OmnixAIChatPanel;
+    public var center:OmnixAICenter;
+    var initialTab:String;
+
+    public function new(?initialTab:String = OmnixAICenter.CHAT) {
+        super();
+        this.initialTab = initialTab;
+    }
 
     override public function create():Void {
         super.create();
-        panel = new OmnixAIChatPanel();
-        add(panel);
+        center = new OmnixAICenter();
+        center.selectTab(initialTab);
+        add(center);
     }
 }
