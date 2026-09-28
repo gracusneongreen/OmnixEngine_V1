@@ -1,0 +1,12 @@
+{
+  "provider": "Microsoft",
+  "official_download_page": "https://www.microsoft.com/software-download/windows11",
+  "current_release_note": "Microsoft download page currently lists Windows 11 25H2",
+  "architecture": "x64",
+  "source_type": "official_iso",
+  "download_links_are_time_limited": true,
+  "local_iso_directory": "iso",
+  "license_required": true,
+  "automatic_license_bypass": false,
+  "verify_sha256": true
+}
