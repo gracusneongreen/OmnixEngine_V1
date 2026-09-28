@@ -1,12 +1,12 @@
 package omnix.ui;
 
 import flixel.FlxSprite;
-import flixel.group.FlxTypedGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.ui.FlxInputText;
+import flixel.addons.ui.FlxInputText;
 import omnix.ai.computer.OmnixComputerAgent;
-import omnix.ai.computer.OmnixComputerResult;
+import omnix.ai.computer.OmnixComputerUse.OmnixComputerResult;
 import omnix.ai.computer.OmnixScreenPeek;
 
 class OmnixAgentDesktop extends FlxTypedGroup<FlxSprite> {
