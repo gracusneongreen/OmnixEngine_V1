@@ -2,7 +2,7 @@ package omnix.ai;
 
 import omnix.ai.computer.OmnixComputerAction;
 import omnix.ai.computer.OmnixComputerUse;
-import omnix.ai.computer.OmnixComputerResult;
+import omnix.ai.computer.OmnixComputerUse.OmnixComputerResult;
 
 class OmnixComputerToolRouter {
     public var computer:OmnixComputerUse;
