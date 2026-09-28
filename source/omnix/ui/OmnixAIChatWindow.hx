@@ -6,15 +6,12 @@ import flixel.group.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxInputText;
-import omnix.ai.OmnixAIChat;
+import omnix.ai.OmnixAIMode;
+import omnix.ai.OmnixAIModeChat;
 import omnix.ai.OmnixAIContext;
 
-/**
- * Full in-engine chat window:
- * title, scrollable-style transcript area, text input and SEND button.
- */
 class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
-    public var chat:OmnixAIChat;
+    public var chat:OmnixAIModeChat;
     public var context:OmnixAIContext;
     public var input:FlxInputText;
     public var sendButton:FlxButton;
@@ -25,9 +22,8 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
 
     public function new(x:Float = 24, y:Float = 24, width:Int = 700, height:Int = 420) {
         super();
-
-        chat = new OmnixAIChat();
-        context = new OmnixAIContext();
+        chat = new OmnixAIModeChat(OmnixAIMode.CHAT);
+        context = chat.context;
 
         var background = new FlxSprite(x, y);
         background.makeGraphic(width, height, 0xEE0B0B0F);
@@ -37,7 +33,7 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
         header.size = 20;
         add(header);
 
-        transcript = new FlxText(x + 16, y + 50, width - 32, "OmnixFNF-AI ready. Ask about your FNF project.");
+        transcript = new FlxText(x + 16, y + 50, width - 32, "OmnixFNF-AI ready. Mode: CHAT");
         transcript.size = 14;
         transcript.wordWrap = true;
         add(transcript);
@@ -56,15 +52,20 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
         add(status);
     }
 
-    function sendCurrent():Void {
+    public function setMode(mode:String):Void {
+        chat.setMode(mode);
+        status.text = "LOCAL AI: mode = " + mode;
+        addLine("SYSTEM: switched to " + mode.toUpperCase() + " mode.");
+    }
+
+    public function sendCurrent():Void {
         var question = StringTools.trim(input.text);
         if (question == "") return;
-
         input.text = "";
         addLine("You: " + question);
         status.text = "LOCAL AI: thinking...";
 
-        chat.ask(context.toPrompt() + "\nUser question: " + question,
+        chat.ask(question,
             function(answer:String) {
                 addLine("AI: " + answer);
                 status.text = "LOCAL AI: ready";
@@ -84,16 +85,13 @@ class OmnixAIChatWindow extends FlxTypedGroup<FlxSprite> {
     public function clearChat():Void {
         chat.clear();
         historyLines = [];
-        transcript.text = "OmnixFNF-AI ready. Ask about your FNF project.";
+        transcript.text = "OmnixFNF-AI ready. Mode: " + Std.string(chat.mode).toUpperCase();
         status.text = "LOCAL AI: ready";
         input.text = "";
     }
 
     override public function update(elapsed:Float):Void {
         super.update(elapsed);
-
-        if (FlxG.keys.justPressed.ENTER && input.hasFocus) {
-            sendCurrent();
-        }
+        if (FlxG.keys.justPressed.ENTER && input.hasFocus) sendCurrent();
     }
 }
