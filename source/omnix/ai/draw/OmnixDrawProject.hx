@@ -1,15 +1,18 @@
 package omnix.ai.draw;
 
 import haxe.Json;
+import omnix.core.OmnixID;
 
 class OmnixDrawProject {
     public var name:String;
+    public var omnixId:String;
     public var canvasWidth:Int;
     public var canvasHeight:Int;
     public var layers:Array<OmnixDrawLayer>;
 
     public function new(?name:String = "Untitled Omnix Character", ?canvasWidth:Int = 1280, ?canvasHeight:Int = 720) {
         this.name = name;
+        this.omnixId = OmnixID.make("PROJECT", name);
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         layers = [];
@@ -20,13 +23,13 @@ class OmnixDrawProject {
     }
 
     public function getLayer(id:String):OmnixDrawLayer {
-        for (layer in layers) if (layer.id == id) return layer;
+        for (layer in layers) if (layer.id == id || layer.omnixId == id) return layer;
         return null;
     }
 
     public function removeLayer(id:String):Bool {
         for (i in 0...layers.length) {
-            if (layers[i].id == id) {
+            if (layers[i].id == id || layers[i].omnixId == id) {
                 layers.splice(i, 1);
                 return true;
             }
@@ -39,6 +42,7 @@ class OmnixDrawProject {
         for (layer in layers) {
             output.push({
                 id: layer.id,
+                omnixId: layer.omnixId,
                 partId: layer.partId,
                 assetPath: layer.assetPath,
                 visible: layer.visible,
@@ -54,7 +58,9 @@ class OmnixDrawProject {
             });
         }
         return Json.stringify({
+            version: 1,
             name: name,
+            omnixId: omnixId,
             canvasWidth: canvasWidth,
             canvasHeight: canvasHeight,
             layers: output
