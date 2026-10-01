@@ -1,7 +1,9 @@
 package states;
 
 import lime.app.Future;
+#if sys
 import sys.thread.FixedThreadPool;
+#end
 import haxe.Json;
 import lime.utils.Assets;
 import openfl.display.BitmapData;
@@ -17,8 +19,10 @@ import backend.Song;
 import backend.StageData;
 import objects.Character;
 
+#if sys
 import sys.thread.Thread;
 import sys.thread.Mutex;
+#end
 
 import objects.Note;
 import objects.NoteSplash;

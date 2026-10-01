@@ -18,7 +18,12 @@ import backend.Achievements;
 import sys.*;
 import sys.io.*;
 #elseif js
-import js.html.*;
+import webshim.FileSystem;
+import webshim.File;
+import webshim.Sys as Sys;
+import webshim.FixedThreadPool;
+import webshim.Mutex;
+import webshim.Thread;
 #end
 
 import backend.Paths;

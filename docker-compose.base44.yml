@@ -1,0 +1,17 @@
+services:
+  game:
+    build:
+      context: .
+      dockerfile: Dockerfile.base44
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: ["sh", "-ec", "haxelib run lime build html5 && cd export/release/html5/bin && exec python3 -m http.server 3000 --bind 0.0.0.0"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      start_period: 600s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: on-failure
